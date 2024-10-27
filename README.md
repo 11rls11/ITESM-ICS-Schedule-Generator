@@ -101,7 +101,7 @@ pip install PyMuPDF pytz icalendar
 2. **Ejecuta el script**:
 
     ```bash
-    python generar_ics.py
+    python horarios.py
     ```
 
 3. **Sigue las instrucciones en pantalla**:
@@ -121,7 +121,7 @@ pip install PyMuPDF pytz icalendar
 2. **Run the script**:
 
     ```bash
-    python generar_ics.py
+    python horarios.py
     ```
 
 3. **Follow the on-screen instructions**:
