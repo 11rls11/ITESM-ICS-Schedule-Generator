@@ -1,4 +1,4 @@
-# Generador de Horarios del ITESM en Formato ICS / ICS Format ITESM Schedule Generator
+# Generador de Horarios del ITESM en Formato ICS / ITESM ICS Format Schedule Generator
 
 Este script en Python interpreta el PDF generado al terminar la inscripción de materias a través de la plataforma de inscripciones del Instituto Tecnológico y de Estudios Superiores de Monterrey (IRIS) con el objetivo de generar archivos de calendario (.ics) para facilitar la organización y planificación de tus clases en tu aplicación de calendario preferida.
 
