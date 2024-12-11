@@ -41,8 +41,9 @@ def parse_pdf(file_path):
 
             # Obtener profesores
             professor_lines = []
-            while (i < len(lines) and not re.match(r'^(Lun|Mar|Mié|Jue|Vie|Sáb|Dom)',
-                                                   lines[i].strip(), re.IGNORECASE)):
+            while (i < len(lines) and not re.match(
+                    r'^(Lun|Mar|Mié|Jue|Vie|Sáb|Dom)',
+                    lines[i].strip(), re.IGNORECASE)):
                 professor_lines.append(lines[i].strip())
                 i += 1
             professor = ' '.join(professor_lines).strip()
@@ -130,7 +131,7 @@ def parse_pdf(file_path):
             print(f"CRN: {crn}")
             print(f"Días: {days}")
             print(f"Horario: {start_time} - {end_time}")
-            print(f"Fechas: {start_date} - {end_date}")
+            print(f"Fechas: {start_date.strftime('%d/%m/%Y')} - {end_date.strftime('%d/%m/%Y')}")
             print(f"Formato: {formato}")
             print(f"Ubicación: {location}")
             print(f"Clase especial: {'Sí' if is_special_class else 'No'}")
@@ -175,9 +176,13 @@ def ask_colors_for_subjects(schedule_data):
 
     print("Por favor, asigna un color a cada materia (e.g., 'red', 'blue', 'green').")
     for subj in subjects:
-        color = input(f"Color para '{subj}': ")
-        subject_colors[subj] = color
-
+        while True:
+            color = input(f"Color para '{subj}': ").strip()
+            if color:
+                subject_colors[subj] = color
+                break
+            else:
+                print("El color no puede estar vacío. Intenta de nuevo.")
     return subject_colors
 
 
@@ -295,7 +300,7 @@ def create_ics_files(schedule_data, current_date, semester_start_date, subject_c
         cal.add_component(event)
 
         # Guardar el archivo ICS
-        safe_subject = item['subject'].replace(' ', '_')
+        safe_subject = re.sub(r'\s+', '_', item['subject'])
         file_name = os.path.join(output_dir, f"{safe_subject}.ics")
         with open(file_name, 'wb') as f:
             f.write(cal.to_ical())
@@ -304,27 +309,33 @@ def create_ics_files(schedule_data, current_date, semester_start_date, subject_c
     print("Proceso completado.")
 
 
+def get_valid_file_path():
+    """Solicita al usuario un nombre de archivo válido hasta que se proporcione uno existente."""
+    while True:
+        file_name = input("Ingresa el nombre del archivo PDF (sin extensión): ").strip()
+        file_path = os.path.expanduser(f"~/Downloads/{file_name}.pdf")
+        if os.path.isfile(file_path):
+            return file_path
+        else:
+            print(f"El archivo '{file_path}' no existe. Verifica el nombre y la ubicación.")
+
+
+def get_valid_date(prompt):
+    """Solicita al usuario una fecha válida en formato YYYY-MM-DD."""
+    while True:
+        date_str = input(prompt).strip()
+        try:
+            valid_date = datetime.strptime(date_str, "%Y-%m-%d")
+            return valid_date
+        except ValueError:
+            print("Formato de fecha incorrecto. Usa el formato YYYY-MM-DD.")
+
+
 def main():
     """Función principal."""
-    file_name = input("Ingresa el nombre del archivo PDF (sin extensión): ")
-    file_path = os.path.expanduser(f"~/Downloads/{file_name}.pdf")
-    if not os.path.isfile(file_path):
-        print(f"El archivo {file_path} no existe. Verifica el nombre y la ubicación.")
-        return
-
-    current_date_str = input("Ingresa la fecha actual (YYYY-MM-DD): ")
-    try:
-        current_date = datetime.strptime(current_date_str, "%Y-%m-%d")
-    except ValueError:
-        print("Formato de fecha incorrecto. Usa el formato YYYY-MM-DD.")
-        return
-
-    semester_start_str = input("Ingresa la fecha de inicio del semestre (YYYY-MM-DD): ")
-    try:
-        semester_start_date = datetime.strptime(semester_start_str, "%Y-%m-%d")
-    except ValueError:
-        print("Formato de fecha incorrecto. Usa el formato YYYY-MM-DD.")
-        return
+    file_path = get_valid_file_path()
+    current_date = get_valid_date("Ingresa la fecha actual (YYYY-MM-DD): ")
+    semester_start_date = get_valid_date("Ingresa la fecha de inicio del semestre (YYYY-MM-DD): ")
 
     schedule_data = parse_pdf(file_path)
     subject_colors = ask_colors_for_subjects(schedule_data)
