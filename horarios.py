@@ -179,274 +179,185 @@ def ask_colors_for_subjects(schedule_data):
 
 
 def create_ics_files(schedule_data, current_date, semester_start_date, subject_colors):
-    """Crea los archivos ICS a partir de los datos del horario."""
+    """Crea los archivos ICS"""
     try:
+        # Configuración inicial
         output_dir = os.path.expanduser("~/Downloads/Horarios")
         os.makedirs(output_dir, exist_ok=True)
-
-        day_mapping = {
-            "Lun": "MO",
-            "Mar": "TU",
-            "Mié": "WE",
-            "Jue": "TH",
-            "Vie": "FR",
-            "Sáb": "SA",
-            "Dom": "SU"
-        }
-
-        # Zona horaria
         tz = pytz.timezone('America/Mexico_City')
 
-        # Define períodos académicos
-        period1_start = semester_start_date.date()
-        period1_end = period1_start + timedelta(weeks=5) - timedelta(days=1)  # Feb 10 - Mar 16
-        
-        period2_start = period1_end + timedelta(days=8)  # Mar 24 (después del descanso)
-        period2_end = period2_start + timedelta(weeks=6) - timedelta(days=1)  # Mar 24 - May 4
-        
-        period3_start = period2_end + timedelta(days=8)  # May 12 (después del descanso)
-        period3_end = period3_start + timedelta(weeks=5) - timedelta(days=1)  # May 12 - Jun 15
+        def create_calendar():
+            cal = Calendar()
+            cal.add('prodid', '-//Mi Horario//mx')
+            cal.add('version', '2.0')
+            cal.add('X-WR-TIMEZONE', tz.zone)
+            return cal
 
-        periods = [
+        def setup_event(event, item, class_start, class_end):
+            """Configuración común para todos los eventos."""
+            start_time = datetime.strptime(item["start_time"], "%H:%M").time()
+            end_time = datetime.strptime(item["end_time"], "%H:%M").time()
+            
+            event.add('summary', item["subject"])
+            event.add('location', vText(item["location"]))
+            event.add('dtstart', tz.localize(datetime.combine(class_start, start_time)))
+            event.add('dtend', tz.localize(datetime.combine(class_start, end_time)))
+            
+            description = (
+                f"Profesor(es): {item['professor']}\n"
+                f"Sub-período: {item['subperiodo']}\n"
+                f"CRN: {item['crn']}\n"
+                f"Formato: {item['format']}\n"
+                f"Días: {', '.join(item['days'])}\n"
+                f"Horario: {item['start_time']} - {item['end_time']}"
+            )
+            event.add('description', vText(description))
+            event.add('categories', vText(subject_colors.get(item['subject'], 'grey')))
+            event.add('color', subject_colors.get(item['subject'], 'grey'))
+            
+            return start_time, end_time
+
+        def handle_recurrence(event, class_start, class_end, days_of_week):
+            """Maneja la configuración de recurrencia."""
+            if (class_end - class_start).days > 0:
+                event.add('rrule', {
+                    'freq': 'weekly',
+                    'byday': [day_mapping[day.capitalize()] for day in days_of_week],
+                    'until': tz.localize(datetime.combine(
+                        class_end + timedelta(days=1), 
+                        datetime.min.time()
+                    ))
+                })
+
+        def calculate_exclusions(start_date, end_date):
+            """Calcula fechas de exclusión comunes."""
+            exclusions = [
+                d for d in fixed_holidays
+                if start_date <= d <= end_date
+            ]
+            
+            # Semana Santa
+            current = holy_week_start
+            while current <= holy_week_end:
+                if start_date <= current <= end_date:
+                    exclusions.append(current)
+                current += timedelta(days=1)
+            
+            return exclusions
+
+        # Configuración de períodos
+        day_mapping = {"Lun": "MO", "Mar": "TU", "Mié": "WE", 
+                      "Jue": "TH", "Vie": "FR", "Sáb": "SA", "Dom": "SU"}
+        
+        # Definición de períodos académicos
+        period1_start = semester_start_date.date()
+        period1_end = period1_start + timedelta(weeks=5) - timedelta(days=1)
+
+        period2_start = period1_end + timedelta(days=8)
+        period2_end = period2_start + timedelta(weeks=6) - timedelta(days=1)
+
+        period3_start = period2_end + timedelta(days=8)  # May 5
+        period3_end = period3_start + timedelta(weeks=5) - timedelta(days=1)
+
+        period_defs = [
             {'start': period1_start, 'end': period1_end},
             {'start': period2_start, 'end': period2_end},
             {'start': period3_start, 'end': period3_end}
         ]
 
-        # Días festivos fijos
-        fixed_holidays = [
-            datetime(2025, 3, 17).date(),  # Asueto
-            datetime(2025, 5, 1).date(),   # Día del Trabajo
-        ]
-
-        # Semana Santa
+        # Configuración de días festivos
+        fixed_holidays = [datetime(2025, 3, 17).date(), datetime(2025, 5, 1).date()]
         holy_week_start = datetime(2025, 4, 14).date()
         holy_week_end = datetime(2025, 4, 20).date()
 
+        # Procesamiento principal
         for item in schedule_data:
-            try:
-                if item["end_date"] < current_date:
-                    print(f"La clase '{item['subject']}' ya finalizó. Omitiendo...")
-                    continue
-
-                if item['is_special_class']:
-                    cal = Calendar()
-                    cal.add('prodid', '-//Mi Horario//mx')
-                    cal.add('version', '2.0')
-                    cal.add('X-WR-TIMEZONE', tz.zone)
-
-                    # Calcular exclusiones para clases especiales
-                    exclusions = []
-                    class_start = item["start_date"].date()
-                    class_end = item["end_date"].date()
-    
-                    # Agregar días festivos
-                    exclusions.extend([d for d in fixed_holidays 
-                                      if class_start <= d <= class_end])
-
-                    # Obtener días de clase
-                    class_days = [list(day_mapping.keys()).index(day.capitalize()) 
-                                 for day in item["days"]]
-
-                    # Filtrar exclusiones por días de clase
-                    current_excludes = [
-                        date for date in exclusions
-                        if date.weekday() in class_days
-                    ]
-
-                    # Crear evento para clase especial
-                    event = Event()
-                    event.add('summary', item["subject"])
-
-                    # Configurar horarios
-                    start_time = datetime.strptime(item["start_time"], "%H:%M").time()
-                    end_time = datetime.strptime(item["end_time"], "%H:%M").time()
-
-                    # Calcular primer día
-                    class_days = [list(day_mapping.keys()).index(day.capitalize()) 
-                                for day in item["days"]]
-                    first_day = next(
-                        (item["start_date"].date() + timedelta(days=((d - item["start_date"].date().weekday()) % 7))
-                         for d in class_days
-                         if (item["start_date"].date() + timedelta(days=((d - item["start_date"].date().weekday()) % 7))) >= item["start_date"].date()),
-                        item["start_date"].date()
-                    )
-
-                    event.add('dtstart', tz.localize(datetime.combine(first_day, start_time)))
-                    event.add('dtend', tz.localize(datetime.combine(first_day, end_time)))
-
-                    # Configurar recurrencia si dura más de un día
-                    if (item["end_date"].date() - item["start_date"].date()).days > 0:
-                        days_of_week = [day_mapping[day.capitalize()] for day in item["days"]]
-                        until_date = tz.localize(datetime.combine(item["end_date"].date() + timedelta(days=1), 
-                                                                datetime.min.time()))
-                        event.add('rrule', {
-                            'freq': 'weekly',
-                            'byday': days_of_week,
-                            'until': until_date
-                        })
-
-                    # Añadir exclusiones
-                    if current_excludes:
-                        exdates = [tz.localize(datetime.combine(d, start_time))
-                                    for d in current_excludes]
-                        event.add('exdate', exdates)
-                        print(f"Fechas de exclusión para '{item['subject']}': {[dt.strftime('%d/%m/%Y') for dt in exdates]}")
-
-
-                    # Agregar metadatos
-                    description = (
-                        f"Profesor(es): {item['professor']}\n"
-                        f"Sub-período: {item['subperiodo']}\n"
-                        f"CRN: {item['crn']}\n"
-                        f"Formato: {item['format']}\n"
-                        f"Ubicación: {item['location']}\n"
-                        f"Días: {', '.join(item['days'])}\n"
-                        f"Horario: {item['start_time']} - {item['end_time']}\n"
-                        f"Periodo: {item['start_date'].strftime('%d/%m/%Y')} - {item['end_date'].strftime('%d/%m/%Y')}"
-                    )
-                    
-                    event.add('location', vText(item["location"]))
-                    event.add('description', vText(description))
-                    event.add('categories', vText(subject_colors.get(item['subject'], 'grey')))
-                    event.add('color', subject_colors.get(item['subject'], 'grey'))
-
-                    cal.add_component(event)
-
-                    # Guardar archivo ICS
-                    safe_subject = re.sub(r'\s+', '_', item['subject'])
-                    file_name = os.path.join(output_dir, f"{safe_subject}.ics")
-                    
-                    with open(file_name, 'wb') as f:
-                        f.write(cal.to_ical())
-                    print(f"Archivo ICS guardado en {file_name}")
-                    continue
-
-                for period in periods:
-                    # Verificar si la clase cae en este período
-                    class_start = max(item["start_date"].date(), period['start'])
-                    class_end = min(item["end_date"].date(), period['end'])
-                    
-                    if class_start > class_end:
-                        continue
-
-                    cal = Calendar()
-                    cal.add('prodid', '-//Mi Horario//mx')
-                    cal.add('version', '2.0')
-                    cal.add('X-WR-TIMEZONE', tz.zone)
-
-                    # Calcular exclusiones para este período
-                    exclusions = []
-                    
-                    # Agregar días festivos
-                    exclusions.extend([d for d in fixed_holidays 
-                                     if class_start <= d <= class_end])
-                    
-                    # Agregar Semana Santa si está dentro del período
-                    current = holy_week_start
-                    while current <= holy_week_end:
-                        if class_start <= current <= class_end:
-                            exclusions.append(current)
-                        current += timedelta(days=1)
-
-                    # Obtener días de clase
-                    try:
-                        class_days = [list(day_mapping.keys()).index(day.capitalize()) 
-                                    for day in item["days"]]
-                    except (KeyError, ValueError) as e:
-                        print(f"Error al procesar los días para la clase '{item['subject']}': {str(e)}")
-                        continue
-
-                    # Filtrar exclusiones por días de clase
-                    current_excludes = [
-                        date for date in exclusions
-                        if date.weekday() in class_days
-                    ]
-
-                    # Crear evento
-                    event = Event()
-                    event.add('summary', item["subject"])
-
-                    # Configurar horarios
-                    try:
-                        start_time = datetime.strptime(item["start_time"], "%H:%M").time()
-                        end_time = datetime.strptime(item["end_time"], "%H:%M").time()
-                    except ValueError as e:
-                        print(f"Error en formato de hora para la clase '{item['subject']}': {str(e)}")
-                        continue
-
-                    # Calcular primer día de clase
-                    try:
-                        first_day = next(
-                            (class_start + timedelta(days=((d - class_start.weekday()) % 7))
-                             for d in class_days
-                             if (class_start + timedelta(days=((d - class_start.weekday()) % 7))) >= class_start),
-                            class_start
-                        )
-                    except Exception as e:
-                        print(f"Error al calcular el primer día para la clase '{item['subject']}': {str(e)}")
-                        continue
-
-                    event.add('dtstart', tz.localize(datetime.combine(first_day, start_time)))
-                    event.add('dtend', tz.localize(datetime.combine(first_day, end_time)))
-
-                    # Configurar recurrencia
-                    days_of_week = [day_mapping[day.capitalize()] for day in item["days"]]
-                    until_date = tz.localize(datetime.combine(class_end + timedelta(days=1), 
-                                                            datetime.min.time()))
-                    
-                    event.add('rrule', {
-                        'freq': 'weekly',
-                        'byday': days_of_week,
-                        'until': until_date
-                    })
-
-                    # Agregar exclusiones
-                    if current_excludes:
-                        exdates = [tz.localize(datetime.combine(d, start_time))
-                                  for d in current_excludes]
-                        event.add('exdate', exdates)
-                        print(f"Fechas de exclusión para '{item['subject']}': {[dt.strftime('%d/%m/%Y') for dt in exdates]}")
-
-                    # Agregar metadatos
-                    description = (
-                        f"Profesor(es): {item['professor']}\n"
-                        f"Sub-período: {item['subperiodo']}\n"
-                        f"CRN: {item['crn']}\n"
-                        f"Formato: {item['format']}\n"
-                        f"Ubicación: {item['location']}\n"
-                        f"Días: {', '.join(item['days'])}\n"
-                        f"Horario: {item['start_time']} - {item['end_time']}\n"
-                        f"Periodo: {class_start.strftime('%d/%m/%Y')} - {class_end.strftime('%d/%m/%Y')}"
-                    )
-                    
-                    event.add('location', vText(item["location"]))
-                    event.add('description', vText(description))
-                    event.add('categories', vText(subject_colors.get(item['subject'], 'grey')))
-                    event.add('color', subject_colors.get(item['subject'], 'grey'))
-
-                    cal.add_component(event)
-
-                    # Guardar archivo ICS
-                    period_suffix = f"_P{periods.index(period) + 1}"
-                    safe_subject = re.sub(r'\s+', '_', item['subject'])
-                    file_name = os.path.join(output_dir, f"{safe_subject}{period_suffix}.ics")
-                    
-                    try:
-                        with open(file_name, 'wb') as f:
-                            f.write(cal.to_ical())
-                        print(f"Archivo ICS guardado en {file_name}")
-                    except IOError as e:
-                        print(f"Error al guardar el archivo ICS para la clase '{item['subject']}': {str(e)}")
-
-            except Exception as e:
-                print(f"Error al procesar la clase '{item['subject']}': {str(e)}")
+            if item["end_date"].date() < current_date.date():
+                print(f"Clase omitida: {item['subject']} (finalizada)")
                 continue
 
-        print("Proceso completado exitosamente.")
-    except Exception as e:
-        print(f"Error general en la creación de archivos ICS: {str(e)}")
+            try:
+                if item['is_special_class']:
+                    cal = create_calendar()
+                    event = Event()
+                    
+                    start_time, end_time = setup_event(
+                        event, 
+                        item,
+                        item["start_date"].date(),
+                        item["end_date"].date()
+                    )
+                    
+                    # Manejo de exclusiones
+                    exclusions = calculate_exclusions(
+                        item["start_date"].date(), 
+                        item["end_date"].date()
+                    )
+                    
+                    if exclusions:
+                        event.add('exdate', [
+                            tz.localize(datetime.combine(d, start_time))
+                            for d in exclusions
+                        ])
+                        print(f"Exclusiones: {item['subject']} - {len(exclusions)} días")
 
+                    handle_recurrence(event, 
+                                    item["start_date"].date(),
+                                    item["end_date"].date(),
+                                    item["days"])
+                    
+                    cal.add_component(event)
+                    save_ics_file(cal, item)
+
+                else:
+                    for idx, period in enumerate(period_defs, 1):
+                        class_start = max(item["start_date"].date(), period['start'])
+                        class_end = min(item["end_date"].date(), period['end'])
+                        
+                        if class_start > class_end:
+                            continue
+
+                        cal = create_calendar()
+                        event = Event()
+                        
+                        start_time, _ = setup_event(
+                            event, 
+                            item,
+                            class_start,
+                            class_end
+                        )
+                        
+                        exclusions = calculate_exclusions(class_start, class_end)
+                        
+                        if exclusions:
+                            event.add('exdate', [
+                                tz.localize(datetime.combine(d, start_time))
+                                for d in exclusions
+                            ])
+                            print(f"Exclusiones: {item['subject']} P{idx} - {len(exclusions)} días")
+
+                        handle_recurrence(event, class_start, class_end, item["days"])
+                        
+                        cal.add_component(event)
+                        save_ics_file(cal, item, f"_P{idx}")
+
+            except Exception as e:
+                print(f"Error procesando {item['subject']}: {str(e)}")
+
+        print("Proceso completado correctamente.")
+    
+    except Exception as e:
+        print(f"Error crítico: {str(e)}")
+
+def save_ics_file(cal, item, suffix=''):
+    """Guarda el archivo ICS con formato consistente."""
+    output_dir = os.path.expanduser("~/Downloads/Horarios")
+    safe_name = re.sub(r'\s+', '_', item['subject']).strip('_')
+    filename = os.path.join(output_dir, f"{safe_name}{suffix}.ics")
+    
+    with open(filename, 'wb') as f:
+        f.write(cal.to_ical())
+    print(f"Archivo guardado: {filename}")
 
 
 def get_valid_file_path():
