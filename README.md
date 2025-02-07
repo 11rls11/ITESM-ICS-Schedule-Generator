@@ -19,10 +19,10 @@ El programa extrae información relevante del PDF de tu horario, como (pero no l
 - **Nombre de las materias**
 - **Nombre de los profesores**
 - **Duración de las materias**
-- **Fechas de duración de la clase** *(un período o más, saltando períodos vacacionales, días festivos y semanas TEC, sí la clase no es una semana TEC)*
+- **Fechas de duración de la clase** *(un período o más, si es el caso de esto último se salta la agenda de esa clase durante Semana TEC y continúa el siguiente período, también se saltan períodos vacacionales, días festivos, etc.)*
 - **Ubicaciones** *(Salones, Áreas, Remoto, etc.)*
 
-Con esta información, crea eventos en formato iCalendar (.ics) que puedes importar en aplicaciones de calendario como Google Calendar, Outlook o el calendario de tu dispositivo móvil.
+Con esta información, crea eventos en formato iCalendar (*.ics*) que puedes importar en aplicaciones de calendario como Google Calendar, Outlook o el calendario de tu dispositivo móvil.
 
 ![Ejemplo Importación Todo](readmeimg/ejemploimportacion_Censurado.png)
 
@@ -35,7 +35,7 @@ The program extracts relevant information from your schedule PDF, such as, but n
 - **Courses names**
 - **Professors names**
 - **Classes length**
-- **Class duration dates** *(a period or more, skipping vacational periods, holidays and TEC weeks, if the class is not a TEC Week)*
+- **Class duration dates** *(a period or more, skipping TEC Weeks in between periods of Not-TEC-Week classes, vacational periods, holidays, etc. Are also skipped)*
 - **Locations** *(Classrooms, Areas, Remote/Online, etc.)*
 
 Using this information, it creates events in iCalendar (.ics) format that you can import into calendar applications like Google Calendar, Outlook, or your mobile device's calendar.
@@ -46,7 +46,7 @@ Using this information, it creates events in iCalendar (.ics) format that you ca
 
 ### Español
 
-- **Conversión de todas las Materias en el PDF de tú horario**: **Con sólo ingresar el nombre del archivo *.pdf* generado por IRIS en Descargas, la fecha de consulta** *(actual por si quieres generar los archivos de las clases que te faltan, o igual o anterior a la fecha de inicio de semestre para generar los archivos de todas)* **y la fecha de inicio de semestre**, se muestran en consola todas las clases detectadas y **se generan automáticamente los archivos para importalos a tu app de calendario preferida**
+- **Conversión de todas las Materias en el PDF de tu horario**: **Con sólo ingresar el nombre del archivo *.pdf* generado por IRIS en Descargas, la fecha de consulta** *(actual por si quieres generar los archivos de las clases que te faltan, o igual o anterior a la fecha de inicio de semestre para generar los archivos de todas)* **y la fecha de inicio de semestre**, se muestran en consola todas las clases detectadas y **se generan automáticamente los archivos para importalos a tu app de calendario preferida**
 
 - **Exclusión de semanas o días "especiales"**: Omite automáticamente las clases *no especiales* durante las semanas o días "especiales" (por ejemplo, semanas TEC, semanas 18, Semana Santa o días de asueto).
 
@@ -88,7 +88,7 @@ Using this information, it creates events in iCalendar (.ics) format that you ca
 
 [Descargando el .zip del repositorio](https://github.com/user-attachments/assets/5d1eb221-3b93-4775-b4bd-a444847f0f17)
 
-3. **Descomprime y abre la carpeta con VSCode (Instalar la Versión de Escritorio, NO Web, para este paso y el siguiente utilicé la versión Web para mostrar un ejemplo de "instalación limpia")**
+3. **Descomprime y abre la carpeta con VSCode (Tienes que realizar todos los pasos en la versión de Escritorio de VSCode, NO EN LA VERSIÓN WEB, para este paso y el siguiente utilicé la versión Web en los videos de ejemplo para mostrar un ejemplo de "instalación limpia" de la extensión de Python)**, sí no tienes VSCode instalalo [aquí](https://code.visualstudio.com/download)
 
 [Descomprimiendo la carpeta](https://github.com/user-attachments/assets/db3537b7-536f-427e-8340-b9d9fb61d3de)
 
@@ -106,7 +106,7 @@ pip install PyMuPDF pytz icalendar
 
 [Instalando dependencias](https://github.com/user-attachments/assets/3ab24faf-8db6-495a-a050-78e994670d65)
 
-6. **Sí las dependencias no sé reconocen prueba cambiando tu Python Interpreter (El menú para cambiarlo se abre con <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd>)** sólo si tienes más de una versión/interpreter de Python instalada
+6. **Sí las dependencias no sé reconocen prueba cambiando tu Python Interpreter (El menú para cambiarlo (Command Palette) se abre con <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd>)** sólo si tienes más de una versión/interpreter de Python instalada
 
 [Cambiando Interpreter](https://github.com/user-attachments/assets/89326322-23e5-4374-b22c-e296f667af74)
 
@@ -127,14 +127,14 @@ python horarios.py
 - Ingresa el nombre del archivo PDF sin la extensión `.pdf`(de manera predeterminada el `.pdf` de tu horario se llama `Resumen_proceso`, a excepción de que lo hayas descargado más de una vez o en más de una ocasión).
 - Proporciona la fecha actual (o la que tú quieras, antes o durante de cualquier fecha del semestre) y la fecha de inicio del semestre en el formato solicitado (`YYYY-MM-DD` Año - Mes - Día).
 
-[Generando los ics](https://github.com/user-attachments/assets/2121a304-cf81-4d05-b321-c5d175755dfc)
+[Generando los archivos .ics](https://github.com/user-attachments/assets/2121a304-cf81-4d05-b321-c5d175755dfc)
 
 10. **Importa los archivos .ics generados**:
 
 - Los archivos se guardarán en la carpeta `Horarios` (Sí no existe se creará) dentro de `Descargas`.
 - Importa estos archivos en tu aplicación de calendario preferida.
 
-[Importando los archivos ics a Google Calendar](https://github.com/user-attachments/assets/36f31486-de22-425d-b45b-90623e064f6c)
+[Importando los archivos .ics a Google Calendar](https://github.com/user-attachments/assets/36f31486-de22-425d-b45b-90623e064f6c)
 
 ### English
 
@@ -142,11 +142,11 @@ python horarios.py
 
 2. **Download the Repository (*.zip*)**  
 
-3. **Unzip and open the folder in VSCode**  
+3. **Unzip and open the folder in VSCode (DESKTOP VSCODE APP ONLY)** if you don't have it, get it [here](https://code.visualstudio.com/download) 
 
 4. **Install Python extensions in VSCode** if you don't have them.  
 
-5. **Open a Python Terminal and run this command to install required dependencies (Open such menu with: <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd>):**
+5. **Open a Python Terminal and run this command to install required dependencies (Open such menu (Command Palette) with: <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd>):**
 
 ```bash
 pip install PyMuPDF pytz icalendar
