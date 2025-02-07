@@ -2,9 +2,9 @@
 
 ![Imagen de un Calendario Dibujo](readmeimg/calendario.png)
 
-**Este script de Python interpreta el PDF** generado al terminar la inscripción **de** materias a través de la plataforma de inscripciones **IRIS** del Instituto Tecnológico y de Estudios Superiores de Monterrey, **con el objetivo de generar archivos** (*.ics*) **para importar fácilmente tus clases (semanas TEC, clases LiFE, Semanas de Etapa de Evaluación, Optativas, etc.) a** tu aplicación de calendario favorita (**Google Calendar, Outlook Calendar, iCal** *(sólo a tráves de Safari)*) **para facilitar la organización y planificación de tus clases**.
+**Este script de Python interpreta el PDF** generado al terminar la inscripción **de** materias a través de la plataforma de inscripciones **IRIS** del Instituto Tecnológico y de Estudios Superiores de Monterrey, **con el objetivo de generar archivos** (*.ics*) **para importar fácilmente tus clases (semanas TEC, clases LiFE, Semanas de Etapa de Evaluación, Optativas, etc.) a** tu aplicación de calendario favorita (como **Google Calendar, Outlook Calendar, iCal** *(sólo a tráves de Safari)*, entre otras) **para facilitar la organización y planificación de tus clases**.
 
-**This Python script parses the PDF generated after completing course enrollment through the** Instituto Tecnológico y de Estudios Superiores de Monterrey **IRIS class registration platform to generate** (*.ics*) **files for easily importing your classes** (TEC Weeks, LiFE classes, Evaluation Stage Weeks, General Education Classes, etc.) **into** your preferred calendar app (**Google Calendar, Outlook Calendar, iCal** *(only via Safari)*) **to stramline organizing and planning your class schedule**.
+**This Python script parses the PDF generated after completing course enrollment through the** Instituto Tecnológico y de Estudios Superiores de Monterrey **IRIS class registration platform to generate** (*.ics*) **files for easily importing your classes** (TEC Weeks, LiFE classes, Evaluation Stage Weeks, General Education Classes, etc.) **into** your preferred calendar app (e.g. **Google Calendar, Outlook Calendar, iCal** *(only via Safari)*, etc.) **to stramline organizing and planning your class schedule**.
 
 ---
 
