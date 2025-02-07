@@ -1,34 +1,42 @@
 # Generador de Horarios del ITESM en Formato ICS / ITESM ICS Format Schedule Generator
 
-Este script en Python interpreta el PDF generado al terminar la inscripción de materias a través de la plataforma de inscripciones del Instituto Tecnológico y de Estudios Superiores de Monterrey (IRIS) con el objetivo de generar archivos de calendario (.ics) para facilitar la organización y planificación de tus clases en tu aplicación de calendario preferida.
+![Imagen de un Calendario Dibujo](readmeimg/calendario.png)
 
-This Python script parses the PDF generated after completing course enrollment through the Instituto Tecnológico y de Estudios Superiores de Monterrey (IRIS) platform with the goal of generating calendar files (.ics) to facilitate the organization and planning of your classes in your preferred calendar app.
+**Este script de Python interpreta el PDF** generado al terminar la inscripción **de** materias a través de la plataforma de inscripciones **IRIS** del Instituto Tecnológico y de Estudios Superiores de Monterrey, **con el objetivo de generar archivos** (*.ics*) **para importar fácilmente tus clases (semanas TEC, clases LiFE, Semanas de Etapa de Evaluación, Optativas, etc.) a** tu aplicación de calendario favorita (**Google Calendar, Outlook Calendar, iCal** *(sólo a tráves de Safari)*) **para facilitar la organización y planificación de tus clases**.
+
+**This Python script parses the PDF generated after completing course enrollment through the** Instituto Tecnológico y de Estudios Superiores de Monterrey **IRIS class registration platform to generate** (*.ics*) **files for easily importing your classes** (TEC Weeks, LiFE classes, Evaluation Stage Weeks, General Education Classes, etc.) **into** your preferred calendar app (**Google Calendar, Outlook Calendar, iCal** *(only via Safari)*) **to stramline organizing and planning your class schedule**.
 
 ---
 
 ## Descripción / Description
 
+![Ejemplo de horario](readmeimg/ejemplohorario.png)
+
 ### Español
 
 El programa extrae información relevante del PDF de tu horario, como:
 
-- **Materias**
-- **Profesores**
-- **Horarios**
-- **Fechas**
-- **Ubicaciones**
+- **Nombre de las materias**
+- **Nombre de los profesores**
+- **Duración de las materias**
+- **Fechas de duración de la clase** *(un período o más, saltando períodos vacacionales, días festivos y semanas TEC, sí la clase no es una semana TEC)*
+- **Ubicaciones** *(Salones, Áreas, Remoto, etc.)*
 
 Con esta información, crea eventos en formato iCalendar (.ics) que puedes importar en aplicaciones de calendario como Google Calendar, Outlook o el calendario de tu dispositivo móvil.
+
+![Ejemplo Importación Todo](readmeimg/ejemploimportacion_Censurado.png)
+<br>
+![Ejemplo Importación Materia](readmeimg/ejemploimportacionmateria_Censurado.png)
 
 ### English
 
 The program extracts relevant information from your schedule PDF, such as:
 
-- **Courses**
-- **Professors**
-- **Schedules**
-- **Dates**
-- **Locations**
+- **Courses names**
+- **Professors names**
+- **Classes length**
+- **Class duration dates** *(a period or more, skipping vacational periods, holiday and TEC weeks, if the class is not a TEC Week)*
+- **Locations** *(Classrooms, Areas, Remote/Online, etc.)*
 
 Using this information, it creates events in iCalendar (.ics) format that you can import into calendar applications like Google Calendar, Outlook, or your mobile device's calendar.
 
@@ -38,17 +46,15 @@ Using this information, it creates events in iCalendar (.ics) format that you ca
 
 ### Español
 
-- **Análisis automático del PDF de horario**: No necesitas ingresar manualmente tus clases; el script extrae toda la información necesaria del PDF.
-- **Generación de archivos .ics**: Crea archivos de calendario compatibles con la mayoría de las aplicaciones de calendario.
-- **Exclusión de semanas específicas**: Omite automáticamente las clases durante las semanas designadas para actividades especiales (por ejemplo, semanas 6, 12 y 18).
-- **Soporte para clases especiales**: Identifica y programa adecuadamente clases especiales como "Semana Tec" o "Etapas de Evaluación".
+- **Conversión de todas las Materias en el PDF de tú horario**: **Con sólo ingresar el nombre del archivo *.pdf* generado por IRIS en Descargas, la fecha de consulta** *(actual por si quieres generar los archivos de las clases que te faltan, o igual o anterior a la fecha de inicio de semestre para generar los archivos de todas)* **y la fecha de inicio de semestre**, se muestran en consola todas las clases detectadas y **se generan automáticamente los archivos para importalos a tu app de calendario preferida**
+<br>
+- **Exclusión de semanas o días "especiales"**: Omite automáticamente las clases *no especiales* durante las semanas o días "especiales" (por ejemplo, semanas TEC, semanas 18, Semana Santa o días de asueto).
 
 ### English
 
-- **Automatic schedule PDF parsing**: No need to manually enter your classes; the script extracts all necessary information from the PDF.
-- **Generates .ics files**: Creates calendar files compatible with most calendar applications.
-- **Excludes specific weeks**: Automatically omits classes during weeks designated for special activities (e.g., weeks 6, 12, and 18).
-- **Supports special classes**: Identifies and appropriately schedules special classes like "Semana Tec" or "Evaluation Weeks".
+- **Conversion of all courses in your PDF Schedule**: **By simply entering the filename of the *.pdf* generated by IRIS in Downloads, the query date** *(current date if you want to generate files for remaining classes, or equal to/prior to semester start date for all)***, and the semester start date**, all detected classes are displayed in the console and automatically generate importable files for your preferred calendar app.
+<br>
+- **Exclusion of "Special" Weeks/Days**: Automatically skips non-special classes during "special" periods (e.g., Tec Weeks, Week 18, Holy Week or Holidays). 
 
 ---
 
@@ -56,39 +62,19 @@ Using this information, it creates events in iCalendar (.ics) format that you ca
 
 ### Español
 
-- **Python 3.x**
+- **Python 3.6** *o una versión más reciente*
 - **Bibliotecas Python**:
-  - PyMuPDF (fitz)
+  - fitz
   - pytz
   - icalendar
 
 ### English
 
-- **Python 3.x**
+- **Python 3.6** *or newer*
 - **Python Libraries**:
-  - PyMuPDF (fitz)
+  - fitz
   - pytz
   - icalendar
-
----
-
-## Instalación de Dependencias / Install Dependencies
-
-### Español
-
-Abre una terminal y ejecuta el siguiente comando para instalar las dependencias necesarias:
-
-```bash
-pip install PyMuPDF pytz icalendar
-```
-
-### English
-
-Open a terminal and run the following command to install the necessary dependencies:
-
-```bash
-pip install PyMuPDF pytz icalendar
-```
 
 ---
 
@@ -96,43 +82,71 @@ pip install PyMuPDF pytz icalendar
 
 ### Español
 
-1. **Coloca el PDF de tu horario** en la carpeta `Descargas` de tu usuario.
+**Descarga e Instala Python en tu computadora** sí no lo tienes, puedes descargarlo [aquí](https://www.python.org/downloads/)
 
-2. **Ejecuta el script**:
+**Descarga el Archivo (*.zip*)**
 
-    ```bash
-    python horarios.py
-    ```
+**Descomprime y abre la carpeta con VSCode**
 
-3. **Sigue las instrucciones en pantalla**:
+**Instala las extensiones de Python en VSCode** sí no las tienes.
 
-    - Ingresa el nombre del archivo PDF (sin la extensión `.pdf`).
-    - Proporciona la fecha actual y la fecha de inicio del semestre en el formato solicitado (`YYYY-MM-DD`).
+**Abre una Terminal de Python e introduce el siguiente comando para instalar las dependencias necesarias para el programa:**
 
-4. **Importa los archivos .ics generados**:
+```bash
+pip install PyMuPDF pytz icalendar
+```
 
-    - Los archivos se guardarán en la carpeta `Horarios` dentro de `Descargas`.
-    - Importa estos archivos en tu aplicación de calendario preferida.
+**Sí las dependencias no sé instalan correctamente prueba cambiando tu Python Interpreter**
+
+**Coloca el PDF de tu horario en la carpeta `Descargas` de tu usuario**, si no está ahí por defecto tras descargarlo a tráves de IRIS en tu navegador, si aún no lo has descargado, [descárgalo aquí](https://iris.tec.mx/app/enroll/schedule/saved).
+
+**Ejecuta el script introduciendo el siguiente comando en Terminal**:
+
+```bash
+python horarios.py
+```
+
+**Sigue las instrucciones en pantalla**:
+
+- Ingresa el nombre del archivo PDF sin la extensión `.pdf`(de manera predeterminada el `.pdf` de tu horario se llama `Resumen_proceso`, a excepción de que lo hayas descargado más de una vez o en más de una ocasión).
+- Proporciona la fecha actual (o la que tú quieras, antes o durante de cualquier fecha del semestre) y la fecha de inicio del semestre en el formato solicitado (`YYYY-MM-DD` Año - Mes - Día).
+
+**Importa los archivos .ics generados**:
+
+- Los archivos se guardarán en la carpeta `Horarios` (Sí no existe se creará) dentro de `Descargas`.
+- Importa estos archivos en tu aplicación de calendario preferida.
 
 ### English
 
-1. **Place your schedule PDF** in your user's `Downloads` folder.
+**Download and Install Python** on your computer if you don't have it. Get it [here](https://www.python.org/downloads/).  
 
-2. **Run the script**:
+**Download the Repository (*.zip*)**  
 
-    ```bash
-    python horarios.py
-    ```
+**Unzip and open the folder in VSCode**  
 
-3. **Follow the on-screen instructions**:
+**Install Python extensions in VSCode** if you don't have them.  
 
-    - Enter the name of the PDF file (without the `.pdf` extension).
-    - Provide the current date and the semester start date in the requested format (`YYYY-MM-DD`).
+**Open a Python Terminal and run this command to install required dependencies:**  
+```bash
+pip install PyMuPDF pytz icalendar
+```
 
-4. **Import the generated .ics files**:
+**If dependencies fail to install**, try switching your Python interpreter.  
 
-    - The files will be saved in the `Horarios` folder within `Downloads`.
-    - Import these files into your preferred calendar application.
+**Place your schedule PDF in your user's `Downloads` folder**. If not already there after downloading via IRIS, [get it here](https://iris.tec.mx/app/enroll/schedule/saved).  
+
+**Run the script with this terminal command**:  
+```bash
+python horarios.py
+```
+
+**Follow on-screen instructions**:  
+- Enter PDF filename **without** `.pdf` extension (*default*: `Resumen_proceso` unless re-downloaded)  
+- Provide current date (or any date before/during semester dates) and semester start date in `YYYY-MM-DD` format  
+
+**Import generated .ics files**:  
+- Files save to `Horarios` folder (auto-created if missing) within `Downloads`  
+- Import these into your preferred calendar app. 
 
 ---
 
@@ -140,12 +154,17 @@ pip install PyMuPDF pytz icalendar
 
 ```
 .
+├── .gitignore
 ├── horarios.py
 ├── README.md
+├── LICENSE
+├── SECURITY.md
 ```
 
 - **horarios.py**: Script principal para generar los archivos `.ics`. | Main script to generate the `.ics`. files.
 - **README.md**: Este archivo. | This file.
+- **LICENSE**: License de uso MIT | MIT's Use License
+- **SECURITY.md**: Poliza de Seguridad | Security Policy
 
 ---
 

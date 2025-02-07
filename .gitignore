@@ -1,0 +1,12 @@
+*.vsidx
+*.vs
+*.vssettings
+*.vsworkspace
+*.vsuo
+*.pyproj
+ProjectSettings.json
+VSWorkspaceState.json
+*.cache
+DocumentLayout*.json
+FileContentIndex/
+obj/Debug/

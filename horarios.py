@@ -156,7 +156,7 @@ def generate_exclude_dates(semester_start_date, weeks):
         exclude_dates.extend(week_dates)
     return [d.date() for d in exclude_dates]
 
-
+'''
 def ask_colors_for_subjects(schedule_data):
     """Pregunta al usuario por un color para cada materia distinta."""
     subjects = {item['subject'] for item in schedule_data}
@@ -176,9 +176,10 @@ def ask_colors_for_subjects(schedule_data):
                 print(f"Color inválido. Por favor, elige entre: {', '.join(color_options)}")
     
     return subject_colors
+'''
 
-
-def create_ics_files(schedule_data, current_date, semester_start_date, subject_colors):
+# def create_ics_files(schedule_data, current_date, semester_start_date, subject_colors):
+def create_ics_files(schedule_data, current_date, semester_start_date):
     """Crea los archivos ICS"""
     try:
         # Configuración inicial
@@ -212,8 +213,8 @@ def create_ics_files(schedule_data, current_date, semester_start_date, subject_c
                 f"Horario: {item['start_time']} - {item['end_time']}"
             )
             event.add('description', vText(description))
-            event.add('categories', vText(subject_colors.get(item['subject'], 'grey')))
-            event.add('color', subject_colors.get(item['subject'], 'grey'))
+            # event.add('categories', vText(subject_colors.get(item['subject'], 'grey')))
+            # event.add('color', subject_colors.get(item['subject'], 'grey'))
             
             return start_time, end_time
 
@@ -389,9 +390,9 @@ def main():
     semester_start_date = get_valid_date("Ingresa la fecha de inicio del semestre (YYYY-MM-DD): ")
 
     schedule_data = parse_pdf(file_path)
-    subject_colors = ask_colors_for_subjects(schedule_data)
-    create_ics_files(schedule_data, current_date, semester_start_date, subject_colors)
-
+    # subject_colors = ask_colors_for_subjects(schedule_data)
+    # create_ics_files(schedule_data, current_date, semester_start_date, subject_colors)
+    create_ics_files(schedule_data, current_date, semester_start_date)
 
 if __name__ == "__main__":
     main()
