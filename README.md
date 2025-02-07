@@ -88,7 +88,7 @@ Using this information, it creates events in iCalendar (.ics) format that you ca
 
 [Descargando el .zip del repositorio](https://github.com/user-attachments/assets/5d1eb221-3b93-4775-b4bd-a444847f0f17)
 
-3. **Descomprime y abre la carpeta con VSCode (Versión de Escritorio, NO Web)**
+3. **Descomprime y abre la carpeta con VSCode (Instalar la Versión de Escritorio, NO Web, para este paso y el siguiente utilicé la versión Web para mostrar un ejemplo de "instalación limpia")**
 
 [Descomprimiendo la carpeta](https://github.com/user-attachments/assets/db3537b7-536f-427e-8340-b9d9fb61d3de)
 
@@ -106,7 +106,7 @@ pip install PyMuPDF pytz icalendar
 
 [Instalando dependencias](https://github.com/user-attachments/assets/3ab24faf-8db6-495a-a050-78e994670d65)
 
-6. **Sí las dependencias no sé reconocen prueba cambiando tu Python Interpreter** sólo si tienes más de una versión de Python instalada
+6. **Sí las dependencias no sé reconocen prueba cambiando tu Python Interpreter (El menú para cambiarlo se abre con <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd>)** sólo si tienes más de una versión/interpreter de Python instalada
 
 [Cambiando Interpreter](https://github.com/user-attachments/assets/89326322-23e5-4374-b22c-e296f667af74)
 
@@ -146,7 +146,7 @@ python horarios.py
 
 4. **Install Python extensions in VSCode** if you don't have them.  
 
-5. **Open a Python Terminal and run this command to install required dependencies:**
+5. **Open a Python Terminal and run this command to install required dependencies (Open such menu with: <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd>):**
 
 ```bash
 pip install PyMuPDF pytz icalendar
