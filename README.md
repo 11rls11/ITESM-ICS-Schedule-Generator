@@ -25,7 +25,7 @@ El programa extrae información relevante del PDF de tu horario, como:
 Con esta información, crea eventos en formato iCalendar (.ics) que puedes importar en aplicaciones de calendario como Google Calendar, Outlook o el calendario de tu dispositivo móvil.
 
 ![Ejemplo Importación Todo](readmeimg/ejemploimportacion_Censurado.png)
-<br>
+
 ![Ejemplo Importación Materia](readmeimg/ejemploimportacionmateria_Censurado.png)
 
 ### English
@@ -64,7 +64,7 @@ Using this information, it creates events in iCalendar (.ics) format that you ca
 
 - **Python 3.6** *o una versión más reciente*
 - **Bibliotecas Python**:
-  - fitz
+  - fitz (de la libreria PyMuPDF)
   - pytz
   - icalendar
 
@@ -72,7 +72,7 @@ Using this information, it creates events in iCalendar (.ics) format that you ca
 
 - **Python 3.6** *or newer*
 - **Python Libraries**:
-  - fitz
+  - fitz (from the PyMuPDF library)
   - pytz
   - icalendar
 
@@ -82,23 +82,23 @@ Using this information, it creates events in iCalendar (.ics) format that you ca
 
 ### Español
 
-**Descarga e Instala Python en tu computadora** sí no lo tienes, puedes descargarlo [aquí](https://www.python.org/downloads/)
+1. **Descarga e Instala Python en tu computadora** sí no lo tienes, puedes descargarlo [aquí](https://www.python.org/downloads/)
 
-**Descarga el Archivo (*.zip*)**
+2. **Descarga el Archivo (*.zip*)**
 
 [Descargando el .zip del repositorio](https://github.com/user-attachments/assets/5d1eb221-3b93-4775-b4bd-a444847f0f17)
 
-**Descomprime y abre la carpeta con VSCode (Versión de Escritorio, NO Web)**
+3. **Descomprime y abre la carpeta con VSCode (Versión de Escritorio, NO Web)**
 
 [Descomprimiendo la carpeta](https://github.com/user-attachments/assets/db3537b7-536f-427e-8340-b9d9fb61d3de)
 
 [Abriendo la carpeta en VSCode](https://github.com/user-attachments/assets/6194c0d7-7275-4935-8d58-99d3d775e772)
 
-**Instala la extensión de Python en VSCode** sí no las tienes.
+4. **Instala la extensión de Python en VSCode** sí no las tienes.
 
 [Instalando extensión de Python](https://github.com/user-attachments/assets/d7bc3fc2-3ee2-4fce-8e69-71fef822b91b)
 
-**Abre una Terminal de Python e introduce el siguiente comando para instalar las dependencias necesarias para el programa:**
+5. **Abre una Terminal de Python e introduce el siguiente comando para instalar las dependencias necesarias para el programa:**
 
 ```bash
 pip install PyMuPDF pytz icalendar
@@ -106,15 +106,15 @@ pip install PyMuPDF pytz icalendar
 
 [Instalando dependencias](https://github.com/user-attachments/assets/3ab24faf-8db6-495a-a050-78e994670d65)
 
-**Sí las dependencias no sé instalan correctamente prueba cambiando tu Python Interpreter**
+6. **Sí las dependencias no sé reconocen prueba cambiando tu Python Interpreter** sólo si tienes más de una versión de Python instalada
 
 [Cambiando Interpreter](https://github.com/user-attachments/assets/89326322-23e5-4374-b22c-e296f667af74)
 
-**Coloca el PDF de tu horario en la carpeta `Descargas` de tu usuario**, si no está ahí por defecto tras descargarlo a tráves de IRIS en tu navegador, si aún no lo has descargado, [descárgalo aquí](https://iris.tec.mx/app/enroll/schedule/saved).
+7. **Coloca el PDF de tu horario en la carpeta `Descargas` de tu usuario**, si no está ahí por defecto tras descargarlo a tráves de IRIS en tu navegador, si aún no lo has descargado, [descárgalo aquí](https://iris.tec.mx/app/enroll/schedule/saved).
 
 [Descargando el horario](https://github.com/user-attachments/assets/2126f684-a14d-4f47-bf76-7c591bc15be7)
 
-**Ejecuta el script introduciendo el siguiente comando en Terminal**:
+8. **Ejecuta el script introduciendo el siguiente comando en Terminal**:
 
 ```bash
 python horarios.py
@@ -122,14 +122,14 @@ python horarios.py
 
 [Ejecutando el script en la terminal](https://github.com/user-attachments/assets/c509e876-5181-4a19-aef3-39fa2b886560)
 
-**Sigue las instrucciones en pantalla**:
+9. **Sigue las instrucciones en pantalla**:
 
 - Ingresa el nombre del archivo PDF sin la extensión `.pdf`(de manera predeterminada el `.pdf` de tu horario se llama `Resumen_proceso`, a excepción de que lo hayas descargado más de una vez o en más de una ocasión).
 - Proporciona la fecha actual (o la que tú quieras, antes o durante de cualquier fecha del semestre) y la fecha de inicio del semestre en el formato solicitado (`YYYY-MM-DD` Año - Mes - Día).
 
 [Generando los ics](https://github.com/user-attachments/assets/2121a304-cf81-4d05-b321-c5d175755dfc)
 
-**Importa los archivos .ics generados**:
+10. **Importa los archivos .ics generados**:
 
 - Los archivos se guardarán en la carpeta `Horarios` (Sí no existe se creará) dentro de `Descargas`.
 - Importa estos archivos en tu aplicación de calendario preferida.
@@ -138,33 +138,34 @@ python horarios.py
 
 ### English
 
-**Download and Install Python** on your computer if you don't have it. Get it [here](https://www.python.org/downloads/).  
+1. **Download and Install Python** on your computer if you don't have it. Get it [here](https://www.python.org/downloads/).  
 
-**Download the Repository (*.zip*)**  
+2. **Download the Repository (*.zip*)**  
 
-**Unzip and open the folder in VSCode**  
+3. **Unzip and open the folder in VSCode**  
 
-**Install Python extensions in VSCode** if you don't have them.  
+4. **Install Python extensions in VSCode** if you don't have them.  
 
-**Open a Python Terminal and run this command to install required dependencies:**  
+5. **Open a Python Terminal and run this command to install required dependencies:**
+
 ```bash
 pip install PyMuPDF pytz icalendar
 ```
 
-**If dependencies fail to install**, try switching your Python interpreter.  
+6. **If dependencies fail to install**, try switching your Python interpreter.  
 
-**Place your schedule PDF in your user's `Downloads` folder**. If not already there after downloading via IRIS, [get it here](https://iris.tec.mx/app/enroll/schedule/saved).  
+7. **Place your schedule PDF in your user's `Downloads` folder**. If not already there after downloading via IRIS, [get it here](https://iris.tec.mx/app/enroll/schedule/saved).  
 
-**Run the script with this terminal command**:  
+8. **Run the script with this terminal command**:  
 ```bash
 python horarios.py
 ```
 
-**Follow on-screen instructions**:  
+9. **Follow on-screen instructions**:  
 - Enter PDF filename **without** `.pdf` extension (*default*: `Resumen_proceso` unless re-downloaded)  
 - Provide current date (or any date before/during semester dates) and semester start date in `YYYY-MM-DD` format  
 
-**Import generated .ics files**:  
+10. **Import generated .ics files**:  
 - Files save to `Horarios` folder (auto-created if missing) within `Downloads`  
 - Import these into your preferred calendar app. 
 
