@@ -14,7 +14,7 @@
 
 ### Español
 
-El programa extrae información relevante del PDF de tu horario, como:
+El programa extrae información relevante del PDF de tu horario, como (pero no limitada a):
 
 - **Nombre de las materias**
 - **Nombre de los profesores**
@@ -30,12 +30,12 @@ Con esta información, crea eventos en formato iCalendar (.ics) que puedes impor
 
 ### English
 
-The program extracts relevant information from your schedule PDF, such as:
+The program extracts relevant information from your schedule PDF, such as, but not limited to:
 
 - **Courses names**
 - **Professors names**
 - **Classes length**
-- **Class duration dates** *(a period or more, skipping vacational periods, holiday and TEC weeks, if the class is not a TEC Week)*
+- **Class duration dates** *(a period or more, skipping vacational periods, holidays and TEC weeks, if the class is not a TEC Week)*
 - **Locations** *(Classrooms, Areas, Remote/Online, etc.)*
 
 Using this information, it creates events in iCalendar (.ics) format that you can import into calendar applications like Google Calendar, Outlook, or your mobile device's calendar.
