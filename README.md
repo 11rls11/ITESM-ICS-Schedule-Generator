@@ -86,9 +86,17 @@ Using this information, it creates events in iCalendar (.ics) format that you ca
 
 **Descarga el Archivo (*.zip*)**
 
-**Descomprime y abre la carpeta con VSCode**
+[Descargando el .zip del repositorio](https://github.com/user-attachments/assets/5d1eb221-3b93-4775-b4bd-a444847f0f17)
 
-**Instala las extensiones de Python en VSCode** sí no las tienes.
+**Descomprime y abre la carpeta con VSCode (Versión de Escritorio, NO Web)**
+
+[Descomprimiendo la carpeta](https://github.com/user-attachments/assets/db3537b7-536f-427e-8340-b9d9fb61d3de)
+
+[Abriendo la carpeta en VSCode](https://github.com/user-attachments/assets/6194c0d7-7275-4935-8d58-99d3d775e772)
+
+**Instala la extensión de Python en VSCode** sí no las tienes.
+
+[Instalando extensión de Python](https://github.com/user-attachments/assets/d7bc3fc2-3ee2-4fce-8e69-71fef822b91b)
 
 **Abre una Terminal de Python e introduce el siguiente comando para instalar las dependencias necesarias para el programa:**
 
@@ -96,9 +104,15 @@ Using this information, it creates events in iCalendar (.ics) format that you ca
 pip install PyMuPDF pytz icalendar
 ```
 
+[Instalando dependencias](https://github.com/user-attachments/assets/3ab24faf-8db6-495a-a050-78e994670d65)
+
 **Sí las dependencias no sé instalan correctamente prueba cambiando tu Python Interpreter**
 
+[Cambiando Interpreter](https://github.com/user-attachments/assets/89326322-23e5-4374-b22c-e296f667af74)
+
 **Coloca el PDF de tu horario en la carpeta `Descargas` de tu usuario**, si no está ahí por defecto tras descargarlo a tráves de IRIS en tu navegador, si aún no lo has descargado, [descárgalo aquí](https://iris.tec.mx/app/enroll/schedule/saved).
+
+[Descargando el horario](https://github.com/user-attachments/assets/2126f684-a14d-4f47-bf76-7c591bc15be7)
 
 **Ejecuta el script introduciendo el siguiente comando en Terminal**:
 
@@ -106,15 +120,21 @@ pip install PyMuPDF pytz icalendar
 python horarios.py
 ```
 
+[Ejecutando el script en la terminal](https://github.com/user-attachments/assets/c509e876-5181-4a19-aef3-39fa2b886560)
+
 **Sigue las instrucciones en pantalla**:
 
 - Ingresa el nombre del archivo PDF sin la extensión `.pdf`(de manera predeterminada el `.pdf` de tu horario se llama `Resumen_proceso`, a excepción de que lo hayas descargado más de una vez o en más de una ocasión).
 - Proporciona la fecha actual (o la que tú quieras, antes o durante de cualquier fecha del semestre) y la fecha de inicio del semestre en el formato solicitado (`YYYY-MM-DD` Año - Mes - Día).
 
+[Generando los ics](https://github.com/user-attachments/assets/2121a304-cf81-4d05-b321-c5d175755dfc)
+
 **Importa los archivos .ics generados**:
 
 - Los archivos se guardarán en la carpeta `Horarios` (Sí no existe se creará) dentro de `Descargas`.
 - Importa estos archivos en tu aplicación de calendario preferida.
+
+[Importando los archivos ics a Google Calendar](https://github.com/user-attachments/assets/36f31486-de22-425d-b45b-90623e064f6c)
 
 ### English
 
