@@ -246,7 +246,7 @@ def create_ics_files(schedule_data, current_date, semester_start_date):
             
             return exclusions
 
-        # Configuración de períodos
+        # Configuración de días
         day_mapping = {"Lun": "MO", "Mar": "TU", "Mié": "WE", 
                       "Jue": "TH", "Vie": "FR", "Sáb": "SA", "Dom": "SU"}
         
@@ -267,7 +267,7 @@ def create_ics_files(schedule_data, current_date, semester_start_date):
         ]
 
         # Configuración de días festivos
-        fixed_holidays = [datetime(2025, 3, 17).date(), datetime(2025, 5, 1).date()]
+        fixed_holidays = [datetime(2024, 9, 16).date(), datetime(2024, 10, 1).date(), datetime(2024, 11, 18).date(), datetime(2025, 3, 17).date(), datetime(2025, 5, 1).date(), datetime(2025, 9, 16).date(), datetime(2025, 11, 17).date()]
         holy_week_start = datetime(2025, 4, 14).date()
         holy_week_end = datetime(2025, 4, 20).date()
 
