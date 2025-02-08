@@ -196,6 +196,17 @@ def create_ics_files(schedule_data, current_date, semester_start_date):
 
         def setup_event(event, item, class_start, class_end):
             """Configuración común para todos los eventos."""
+
+            days_mapping = {
+                'Lun': 0, 'Mar': 1, 'Mié': 2, 'Jue': 3, 'Vie': 4, 'Sáb': 5, 'Dom': 6
+            }
+
+            class_days = sorted([days_mapping[day] for day in item["days"]])
+            first_day = class_days[0]
+
+            while class_start.weekday() != first_day:
+                class_start += timedelta(days=1)
+
             start_time = datetime.strptime(item["start_time"], "%H:%M").time()
             end_time = datetime.strptime(item["end_time"], "%H:%M").time()
             
@@ -251,14 +262,29 @@ def create_ics_files(schedule_data, current_date, semester_start_date):
                       "Jue": "TH", "Vie": "FR", "Sáb": "SA", "Dom": "SU"}
         
         # Definición de períodos académicos
-        period1_start = semester_start_date.date()
-        period1_end = period1_start + timedelta(weeks=5) - timedelta(days=1)
 
-        period2_start = period1_end + timedelta(days=8)
-        period2_end = period2_start + timedelta(weeks=6) - timedelta(days=1)
+        is_spring_semester = semester_start_date.month == 2
 
-        period3_start = period2_end + timedelta(days=8)  # May 5
-        period3_end = period3_start + timedelta(weeks=5) - timedelta(days=1)
+        if is_spring_semester:
+            # Semestre de Febrero a Junio?
+            period1_start = semester_start_date.date()
+            period1_end = period1_start + timedelta(weeks=5) - timedelta(days=1)
+
+            period2_start = period1_end + timedelta(days=8)
+            period2_end = period2_start + timedelta(weeks=6) - timedelta(days=1)
+
+            period3_start = period2_end + timedelta(days=8)
+            period3_end = period3_start + timedelta(weeks=5) - timedelta(days=1)
+        else:
+            # Semestre de Agosto a Diciembre
+            period1_start = semester_start_date.date()
+            period1_end = period1_start + timedelta(weeks=5) - timedelta(days=1)
+
+            period2_start = period1_end + timedelta(days=8)
+            period2_end = period2_start + timedelta(weeks=5) - timedelta(days=1)
+
+            period3_start = period2_end + timedelta(days=8)
+            period3_end = period3_start + timedelta(weeks=5) - timedelta(days=1)
 
         period_defs = [
             {'start': period1_start, 'end': period1_end},
