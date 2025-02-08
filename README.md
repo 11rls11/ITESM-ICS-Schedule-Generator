@@ -22,7 +22,7 @@ El programa extrae información relevante del PDF de tu horario, como (pero no l
 - **Fechas de duración de la clase** *(un período o más, si es el caso de esto último se salta la agenda de esa clase durante Semana TEC y continúa el siguiente período, también se saltan períodos vacacionales, días festivos, etc.)*
 - **Ubicaciones** *(Salones, Áreas, Remoto, etc.)*
 
-Con esta información, crea eventos en formato iCalendar (*.ics*) que puedes importar en aplicaciones de calendario como Google Calendar, Outlook o el calendario de tu dispositivo móvil.
+Con esta información, crea eventos en formato iCalendar (*.ics*) con terminación P1, P2 o P3, dependiendo el período de la clase (con excepción de Semanas Tec), que puedes importar en aplicaciones de calendario como Google Calendar, Outlook o el calendario de tu dispositivo móvil.
 
 ![Ejemplo Importación Todo](readmeimg/ejemploimportacion_Censurado.png)
 
@@ -38,7 +38,7 @@ The program extracts relevant information from your schedule PDF, such as, but n
 - **Class duration dates** *(a period or more, skipping TEC Weeks in between periods of Not-TEC-Week classes, vacational periods, holidays, etc. Are also skipped)*
 - **Locations** *(Classrooms, Areas, Remote/Online, etc.)*
 
-Using this information, it creates events in iCalendar (.ics) format that you can import into calendar applications like Google Calendar, Outlook, or your mobile device's calendar.
+Using this information, it creates events in iCalendar (.ics) with file names ending with P1, P2 or P3, dependent of the period the class goes through (with the exception of TEC Weeks), format that you can import into calendar applications like Google Calendar, Outlook, or your mobile device's calendar.
 
 ---
 
