@@ -136,6 +136,14 @@ python horarios.py
 
 [Importando los archivos .ics a Google Calendar](https://github.com/user-attachments/assets/36f31486-de22-425d-b45b-90623e064f6c)
 
+**PASOS EXTRA**
+
+11. **Por predeterminado al importar el archivo** *ics* **se importa con un color, si quieres cambiarlo existen dos opciones**, *ej. Google Calendar*. **Click derecho sobre tu materia, y selecciona el color de tu agrado**, luego se abrirá un menú (Editar el evento recurrente), sí seleccionas desde la primera ocurrencia de la clase la opción de "Este y los eventos siguientes", tendra el mismo efecto que cambiar el color con la opción de "Todos los eventos", si no, solo se aplicará el cambio de color desde la clase en que decidiste cambiar el color.
+
+[Cambiando de color las materias en Google Calendar](https://github.com/user-attachments/assets/6929232b-d766-4cbe-a4a8-c9942e91c255)
+
+12. **Si usas Notion** Calendar, sincroniza la cuenta de Google donde importaste tus clases, para tener tu calendario en dicha aplicación.
+
 ### English
 
 1. **Download and Install Python** on your computer if you don't have it. Get it [here](https://www.python.org/downloads/).  
@@ -168,6 +176,12 @@ python horarios.py
 10. **Import generated .ics files**:  
 - Files save to `Horarios` folder (auto-created if missing) within `Downloads`  
 - Import these into your preferred calendar app. 
+
+**EXTRA STEPS**
+
+11. **By default when importing the file** *ics* **it is imported with a color, if you want to change it there are two options**, *eg. Google Calendar*. **Right click on your subject, and select the color you like**, then a menu will open (Edit the recurring event), if you select the "This and subsequent events" option from the first occurrence of the class, it will have the same effect as changing the color with the "All events" option, if not, the color change will only be applied from the class in which you decided to change the color.
+
+12. **If you use Notion** Calendar, sync the Google account where you imported your classes, to have your calendar in said application.
 
 ---
 
