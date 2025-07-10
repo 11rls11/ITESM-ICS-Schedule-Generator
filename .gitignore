@@ -10,3 +10,5 @@ VSWorkspaceState.json
 DocumentLayout*.json
 FileContentIndex/
 obj/Debug/
+*.pdf
+*.ics

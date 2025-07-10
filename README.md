@@ -1,10 +1,14 @@
-# Generador de Horarios del ITESM en Formato ICS / ITESM ICS Format Schedule Generator
+# Conversor de horarios del Tecnológico de Monterrey para importación a aplicaciones de calendario/  Tecnológico de Monterrey's Schedule Parser from .pdf to .ics
 
 ![Imagen de un Calendario Dibujo](readmeimg/calendario.png)
 
-**Este script de Python interpreta el PDF** generado al terminar la inscripción **de** materias a través de la plataforma de inscripciones **IRIS** del Instituto Tecnológico y de Estudios Superiores de Monterrey, **con el objetivo de generar archivos** (*.ics*) **para importar fácilmente tus clases (semanas TEC, clases LiFE, Semanas de Etapa de Evaluación, Optativas, etc.) a** tu aplicación de calendario favorita (como **Google Calendar, Outlook Calendar, iCal** *(sólo a tráves de Safari)*, entre otras) **para facilitar la organización y planificación de tus clases**.
+### Español
 
-**This Python script parses the PDF generated after completing course enrollment through the** Instituto Tecnológico y de Estudios Superiores de Monterrey **IRIS class registration platform to generate** (*.ics*) **files for easily importing your classes** (TEC Weeks, LiFE classes, Evaluation Stage Weeks, General Education Classes, etc.) **into** your preferred calendar app (e.g. **Google Calendar, Outlook Calendar, iCal** *(only via Safari)*, etc.) **to stramline organizing and planning your class schedule**.
+**Este script de Python interpreta el PDF** generado al terminar la inscripción **de** materias a través de la plataforma de inscripciones **IRIS** del Tecnológico de Monterrey, **para generar un solo archivo** (*.ics*) **para importar fácilmente tus clases (semanas TEC, clases LiFE, Semanas de Etapa de Evaluación, Optativas, etc.) a** tu aplicación de calendario favorita (como **Google Calendar, Outlook Calendar, iCal** *(sólo a tráves de Safari)*, entre otras) **para facilitar la organización y planificación de tus clases**.
+
+### English
+
+**This Python script parses the PDF generated after completing course enrollment through the** Tecnológico de Monterrey's **IRIS class registration platform to generate a** (*.ics*) **file for easily importing your classes** (TEC Weeks, LiFE classes, Evaluation Stage Weeks, General Education Classes, etc.) **into** your preferred calendar app (e.g. **Google Calendar, Outlook Calendar, iCal** *(only via Safari)*, etc.) **to stramline organizing and planning your class schedule**.
 
 ---
 
@@ -14,15 +18,19 @@
 
 ### Español
 
-El programa extrae información relevante del PDF de tu horario, como (pero no limitada a):
+El programa extrae información relevante del PDF de tu horario, como:
 
 - **Nombre de las materias**
-- **Nombre de los profesores**
+- **Nombre(s) de los profesores**
+- **Sub-período(s) que conforma tu clase**
+- **CRN**
+- **Formato**
 - **Duración de las materias**
 - **Fechas de duración de la clase** *(un período o más, si es el caso de esto último se salta la agenda de esa clase durante Semana TEC y continúa el siguiente período, también se saltan períodos vacacionales, días festivos, etc.)*
+- **Idioma de tu clase**
 - **Ubicaciones** *(Salones, Áreas, Remoto, etc.)*
 
-Con esta información, crea eventos en formato iCalendar (*.ics*) con terminación P1, P2 o P3, dependiendo el período de la clase (con excepción de Semanas Tec), que puedes importar en aplicaciones de calendario como Google Calendar, Outlook o el calendario de tu dispositivo móvil.
+Con esta información, crea eventos (tus clases) con descripciones detalladas, todo un solo archivo en formato iCalendar (*.ics*), que puedes importar en aplicaciones de calendario como Google Calendar, Outlook o el calendario de tu dispositivo móvil.
 
 ![Ejemplo Importación Todo](readmeimg/ejemploimportacion_Censurado.png)
 
@@ -30,15 +38,19 @@ Con esta información, crea eventos en formato iCalendar (*.ics*) con terminaci�
 
 ### English
 
-The program extracts relevant information from your schedule PDF, such as, but not limited to:
+The program extracts relevant information from your schedule PDF, such as:
 
-- **Courses names**
-- **Professors names**
-- **Classes length**
-- **Class duration dates** *(a period or more, skipping TEC Weeks in between periods of Not-TEC-Week classes, vacational periods, holidays, etc. Are also skipped)*
-- **Locations** *(Classrooms, Areas, Remote/Online, etc.)*
+- **Subject names**
+- **Professor name(s)**
+- **Sub-period(s) that make up your class**
+- **CRN**
+- **Format**
+- **Subject duration**
+- **Class duration dates** *(one period or more, if the latter is the case, the agenda for that class is skipped during TEC Week and continues the next period, vacation periods, holidays, etc. are also skipped)*
+- **Your class language**
+- **Locations** *(Classrooms, Areas, Remote, etc.)*
 
-Using this information, it creates events in iCalendar (.ics) with file names ending with P1, P2 or P3, dependent of the period the class goes through (with the exception of TEC Weeks), format that you can import into calendar applications like Google Calendar, Outlook, or your mobile device's calendar.
+With this information, it creates events (your classes) with detailed descriptions all on a single file in iCalendar format (*.ics*), which you can import into calendar applications like Google Calendar, Outlook or your mobile device's calendar
 
 ---
 
@@ -46,15 +58,14 @@ Using this information, it creates events in iCalendar (.ics) with file names en
 
 ### Español
 
-- **Conversión de todas las Materias en el PDF de tu horario**: **Con sólo ingresar el nombre del archivo *.pdf* generado por IRIS en Descargas, la fecha de consulta** *(actual por si quieres generar los archivos de las clases que te faltan, o igual o anterior a la fecha de inicio de semestre para generar los archivos de todas)* **y la fecha de inicio de semestre**, se muestran en consola todas las clases detectadas y **se generan automáticamente los archivos para importalos a tu app de calendario preferida**
+- **Conversión de todas las Materias en el PDF de tu horario**: **Con sólo ingresar el nombre del archivo *.pdf* generado por IRIS presente la carpeta en la que corres el script, la fecha de consulta** *(actual por si quieres generar el archivo con las clases que te faltan, o igual o anterior a la fecha de inicio de semestre para generar el archivo de todas tus clases)* **y la fecha de inicio de semestre**, se muestran en consola todas las clases detectadas y **se genera automáticamente el archivo *.ics* a importar a tu app de calendario preferida**
 
 - **Exclusión de semanas o días "especiales"**: Omite automáticamente las clases *no especiales* durante las semanas o días "especiales" (por ejemplo, semanas TEC, semanas 18, Semana Santa o días de asueto).
 
 ### English
-
-- **Conversion of all courses in your PDF Schedule**: **By simply entering the filename of the *.pdf* generated by IRIS in Downloads, the query date** *(current date if you want to generate files for remaining classes, or equal to/prior to semester start date for all)***, and the semester start date**, all detected classes are displayed in the console and automatically generate importable files for your preferred calendar app.
-
-- **Exclusion of "Special" Weeks/Days**: Automatically skips non-special classes during "special" periods (e.g., Tec Weeks, Week 18, Holy Week or Holidays). 
+ 
+- **Conversion of all Subjects in your schedule PDF**: **By simply entering the name of the *.pdf* file generated by IRIS present in the folder where you run the script, the query date** *(current if you want to generate the file with the classes you have left, or equal to or earlier than the semester start date to generate the file with all of your classes)* **and the semester start date**, all detected classes are displayed in the console and **the *.ics* file is automatically generated to import into your preferred calendar app**
+- **Exclusion of "special" weeks or days**: Automatically omits *non-special* classes during "special" weeks or days (for example, TEC weeks, week 18, Holy Week or holidays).
 
 ---
 
@@ -64,7 +75,7 @@ Using this information, it creates events in iCalendar (.ics) with file names en
 
 - **Python 3.6** *o una versión más reciente*
 - **Bibliotecas Python**:
-  - fitz (de la libreria PyMuPDF)
+  - fitz
   - pytz
   - icalendar
 
@@ -72,7 +83,7 @@ Using this information, it creates events in iCalendar (.ics) with file names en
 
 - **Python 3.6** *or newer*
 - **Python Libraries**:
-  - fitz (from the PyMuPDF library)
+  - fitz
   - pytz
   - icalendar
 
@@ -88,7 +99,7 @@ Using this information, it creates events in iCalendar (.ics) with file names en
 
 [Descargando el .zip del repositorio](https://github.com/user-attachments/assets/5d1eb221-3b93-4775-b4bd-a444847f0f17)
 
-3. **Descomprime y abre la carpeta con VSCode (Tienes que realizar todos los pasos en la versión de Escritorio de VSCode, NO EN LA VERSIÓN WEB, para este paso y el siguiente utilicé la versión Web en los videos de ejemplo para mostrar un ejemplo de "instalación limpia" de la extensión de Python)**, sí no tienes VSCode instalalo [aquí](https://code.visualstudio.com/download)
+3. **Descomprime y abre la carpeta con VSCode *(Tienes que realizar todos los pasos en la versión de Escritorio de VSCode, NO EN LA VERSIÓN WEB, para este paso y el siguiente utilicé la versión Web en los videos de ejemplo para mostrar un ejemplo de "instalación limpia" de la extensión de Python)***, sí no tienes VSCode instalalo [aquí](https://code.visualstudio.com/download)
 
 [Descomprimiendo la carpeta](https://github.com/user-attachments/assets/db3537b7-536f-427e-8340-b9d9fb61d3de)
 
@@ -106,11 +117,11 @@ pip install PyMuPDF pytz icalendar
 
 [Instalando dependencias](https://github.com/user-attachments/assets/3ab24faf-8db6-495a-a050-78e994670d65)
 
-6. **Sí las dependencias no sé reconocen prueba cambiando tu Python Interpreter (El menú para cambiarlo (Command Palette) se abre con <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd>)** sólo si tienes más de una versión/interpreter de Python instalada
+6. **Sí las dependencias no sé reconocen prueba cambiando tu Python Interpreter (El menú para cambiarlo (*Command Palette*) se abre con <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd>)** sólo si tienes más de una versión/interpreter de Python instalada
 
 [Cambiando Interpreter](https://github.com/user-attachments/assets/89326322-23e5-4374-b22c-e296f667af74)
 
-7. **Coloca el PDF de tu horario en la carpeta `Descargas` de tu usuario**, si no está ahí por defecto tras descargarlo a tráves de IRIS en tu navegador, si aún no lo has descargado, [descárgalo aquí](https://iris.tec.mx/app/enroll/schedule/saved).
+7. **Coloca el PDF de tu horario en tu carpeta de trabajo (donde corres el código)**, si no tienes tu horario [descárgalo aquí, asegurandote que hayas iniciado sesión en mitec previamente](https://iris.tec.mx/app/enroll/schedule/saved).
 
 [Descargando el horario](https://github.com/user-attachments/assets/2126f684-a14d-4f47-bf76-7c591bc15be7)
 
@@ -124,15 +135,15 @@ python horarios.py
 
 9. **Sigue las instrucciones en pantalla**:
 
-- Ingresa el nombre del archivo PDF sin la extensión `.pdf`(de manera predeterminada el `.pdf` de tu horario se llama `Resumen_proceso`, a excepción de que lo hayas descargado más de una vez o en más de una ocasión).
-- Proporciona la fecha actual (o la que tú quieras, antes o durante de cualquier fecha del semestre) y la fecha de inicio del semestre en el formato solicitado (`YYYY-MM-DD` Año - Mes - Día).
+- Ingresa el nombre del archivo PDF de tu horario sin la extensión `.pdf`(de manera predeterminada el `.pdf` de tu horario se llama `Resumen_proceso`, a excepción de que lo hayas descargado más de una vez, o le hayas modificado el nombre).
+- Proporciona la fecha actual (o la que tú quieras, de antes o durante cualquier fecha del semestre) y la fecha de inicio del semestre en el formato solicitado (`DD-MM-YYYY` Día - Mes - Año).
 
 [Generando los archivos .ics](https://github.com/user-attachments/assets/2121a304-cf81-4d05-b321-c5d175755dfc)
 
-10. **Importa los archivos .ics generados**:
+10. **Importa el archivo .ics generado**:
 
-- Los archivos se guardarán en la carpeta `Horarios` (Sí no existe se creará) dentro de `Descargas`.
-- Importa estos archivos en tu aplicación de calendario preferida.
+- ¡Listo! Tu archivo .ics con toda la información de tus clases se creara en tu carpeta de trabajo con la siguiente convención de nombre: `MiHorario_FechaDeTerminoDeProcesoDeTuHorario_PlanDeEstudios`. Si lo generas más de una vez solo se le añadira al final un guion bajo y un numero dependiendo de que tantas copias tengas en el directorio: `Ej. _1 ... _n`
+- ¡Ahora importa el archivo a tu aplicación de calendario preferida!
 
 [Importando los archivos .ics a Google Calendar](https://github.com/user-attachments/assets/36f31486-de22-425d-b45b-90623e064f6c)
 
@@ -146,42 +157,64 @@ python horarios.py
 
 ### English
 
-1. **Download and Install Python** on your computer if you don't have it. Get it [here](https://www.python.org/downloads/).  
+1. **Download and Install Python on your computer** if you don't have it, you can download it [here](https://www.python.org/downloads/)
+2. **Download the File (*.zip*)**
 
-2. **Download the Repository (*.zip*)**  
+[Downloading the .zip from the repository](https://github.com/user-attachments/assets/5d1eb221-3b93-4775-b4bd-a444847f0f17)
 
-3. **Unzip and open the folder in VSCode (DESKTOP VSCODE APP ONLY)** if you don't have it, get it [here](https://code.visualstudio.com/download) 
+3. **Extract and open the folder with VSCode *(You must perform all steps in the Desktop version of VSCode, NOT IN THE WEB VERSION, for this step and the next I used the Web version in the example videos to show an example of "clean installation" of the Python extension)***, if you don't have VSCode install it [here](https://code.visualstudio.com/download)
 
-4. **Install Python extensions in VSCode** if you don't have them.  
+[Extracting the folder](https://github.com/user-attachments/assets/db3537b7-536f-427e-8340-b9d9fb61d3de)
 
-5. **Open a Python Terminal and run this command to install required dependencies (Open such menu (Command Palette) with: <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd>):**
+[Opening the folder in VSCode](https://github.com/user-attachments/assets/6194c0d7-7275-4935-8d58-99d3d775e772)
 
+4. **Install the Python extension in VSCode** if you don't have it.
+
+[Installing Python extension](https://github.com/user-attachments/assets/d7bc3fc2-3ee2-4fce-8e69-71fef822b91b)
+
+5. **Open a Python Terminal and enter the following command to install the necessary dependencies for the program:**
 ```bash
 pip install PyMuPDF pytz icalendar
 ```
 
-6. **If dependencies fail to install**, try switching your Python interpreter.  
+[Installing dependencies](https://github.com/user-attachments/assets/3ab24faf-8db6-495a-a050-78e994670d65)
 
-7. **Place your schedule PDF in your user's `Downloads` folder**. If not already there after downloading via IRIS, [get it here](https://iris.tec.mx/app/enroll/schedule/saved).  
+6. **If dependencies are not recognized try changing your Python Interpreter (The menu to change it (*Command Palette*) opens with <kbd>Ctrl</kbd> + <kbd>Shift</kbd> + <kbd>P</kbd>)** only if you have more than one version/interpreter of Python installed
 
-8. **Run the script with this terminal command**:  
+[Changing Interpreter](https://github.com/user-attachments/assets/89326322-23e5-4374-b22c-e296f667af74)
+
+7. **Place your schedule PDF in your working folder (where you run the code)**, if you don't have your schedule [download it here, making sure you have previously logged into mitec](https://iris.tec.mx/app/enroll/schedule/saved).
+
+[Downloading the schedule](https://github.com/user-attachments/assets/2126f684-a14d-4f47-bf76-7c591bc15be7)
+
+8. **Run the script by entering the following command in Terminal**:
 ```bash
 python horarios.py
 ```
 
-9. **Follow on-screen instructions**:  
-- Enter PDF filename **without** `.pdf` extension (*default*: `Resumen_proceso` unless re-downloaded)  
-- Provide current date (or any date before/during semester dates) and semester start date in `YYYY-MM-DD` format  
+[Running the script in terminal](https://github.com/user-attachments/assets/c509e876-5181-4a19-aef3-39fa2b886560)
 
-10. **Import generated .ics files**:  
-- Files save to `Horarios` folder (auto-created if missing) within `Downloads`  
-- Import these into your preferred calendar app. 
+9. **Follow the on-screen instructions**:
+
+- Enter the name of your schedule PDF file without the `.pdf` extension (by default your schedule `.pdf` is called `Resumen_proceso`, unless you have downloaded it more than once, or have modified its name).
+- Provide the current date (or the one you want, from before or during any date of the semester) and the semester start date in the requested format (`DD-MM-YYYY` Day - Month - Year).
+
+[Generating the .ics files](https://github.com/user-attachments/assets/2121a304-cf81-4d05-b321-c5d175755dfc)
+
+10. **Import the generated .ics file**:
+
+- Ready! Your .ics file with all your class information will be created in your working folder with the following naming convention: `MiHorario_ProcessEndDateOfYourSchedule_StudyPlan`. If you generate it more than once, only an underscore and a number will be added at the end depending on how many copies you have in the directory: `Ex. _1 ... _n`
+- Now import the file to your preferred calendar application!
+
+[Importing .ics files to Google Calendar](https://github.com/user-attachments/assets/36f31486-de22-425d-b45b-90623e064f6c)
 
 **EXTRA STEPS**
 
-11. **By default when importing the file** *ics* **it is imported with a color, if you want to change it there are two options**, *eg. Google Calendar*. **Right click on your subject, and select the color you like**, then a menu will open (Edit the recurring event), if you select the "This and subsequent events" option from the first occurrence of the class, it will have the same effect as changing the color with the "All events" option, if not, the color change will only be applied from the class in which you decided to change the color.
+11. **By default when importing the** *ics* **file it imports with a color, if you want to change it there are two options**, *ex. Google Calendar*. **Right click on your subject, and select the color of your choice**, then a menu will open (Edit recurring event), if you select from the first occurrence of the class the option "This and following events", it will have the same effect as changing the color with the "All events" option, if not, only the color change will be applied from the class where you decided to change the color.
 
-12. **If you use Notion** Calendar, sync the Google account where you imported your classes, to have your calendar in said application.
+[Changing subject colors in Google Calendar](https://github.com/user-attachments/assets/6929232b-d766-4cbe-a4a8-c9942e91c255)
+
+12. **If you use Notion** Calendar, sync the Google account where you imported your classes, to have your calendar in that application.
 
 ---
 
@@ -196,9 +229,9 @@ python horarios.py
 ├── SECURITY.md
 ```
 
-- **horarios.py**: Script principal para generar los archivos `.ics`. | Main script to generate the `.ics`. files.
+- **horarios.py**: Script principal para generar los archivos `.ics`. | Main script to generate the `.ics`. file.
 - **README.md**: Este archivo. | This file.
-- **LICENSE**: License de uso MIT | MIT's Use License
+- **LICENSE**: License de uso GNU Affero General Public License v3.0 | GNU Affero General Public License v3.0 Use License
 - **SECURITY.md**: Poliza de Seguridad | Security Policy
 
 ---
@@ -217,13 +250,29 @@ Contributions are welcome! Please open an issue or a pull request for any improv
 
 ## Licencia / License
 
-### Español
+Este proyecto está bajo la licencia GNU Affero General Public License v3.0 (AGPL-3.0).
 
-Este proyecto está licenciado bajo la Licencia MIT. Consulta el archivo [LICENSE](LICENSE) para más detalles.
+Esta licencia permite:
+
+- **Usar**: Ejecutar el programa para cualquier propósito
+- **Estudiar**: Acceder y examinar el código fuente
+- **Modificar**: Cambiar el código según tus necesidades
+- **Distribuir**: Compartir copias del programa original o modificado
+
+Bajo los siguientes términos:
+
+- **Copyleft**: Cualquier trabajo derivado debe distribuirse bajo la misma licencia AGPL-3.0
+- **Código fuente**: Debes proporcionar el código fuente completo cuando distribuyas el programa
+- **Atribución**: Debes mantener todos los avisos de copyright y licencia originales
+- **Sin garantías**: El software se proporciona "tal como está", sin garantías de ningún tipo
+
+**Nota importante**: Esta licencia garantiza que el software permanezca libre y abierto. Si deseas usar este software con fines comerciales sin las restricciones del copyleft, contactame para discutir opciones de licenciamiento comercial.
+
+Consulta el archivo [LICENSE](LICENSE) para más detalles.
 
 ### English
 
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for more details.
+This project is licensed under the GNU Affero General Public License v3.0 (AGPL-3.0) license. See the [LICENSE](LICENSE) file for more details.
 
 ---
 
